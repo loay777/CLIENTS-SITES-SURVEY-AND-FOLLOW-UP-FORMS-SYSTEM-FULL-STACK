@@ -1,0 +1,153 @@
+@import url('http://fonts.cdnfonts.com/css/matrix');
+
+.followUpPage{
+    margin: 2%;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    /* height: calc(100vh-80px); */
+}
+
+.recordForm  {
+    width: fit-content;
+    block-size: fit-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    width: 50%;
+    border: 3px solid green;
+    padding: 10px;
+}
+
+.formColor{
+    width: fit-content;
+    block-size: fit-content;
+    justify-content: center; 
+    align-items: center;
+    margin: auto;
+    width: 50%;
+    border: 5px solid rgb(32, 240, 32);
+    border-radius: 23px;
+    padding: 10px;
+   
+}
+
+ .successColor{
+    width: fit-content;
+    block-size: fit-content;
+    justify-content: center; 
+    align-items: center;
+    margin: auto;
+    width: 50%;
+    border: 5px solid rgb(32, 240, 32);
+    border-radius: 23px;
+    padding: 10px;
+    -webkit-box-shadow: 1px 0px 6px 7px rgb(33, 197, 12); 
+    box-shadow: 1px 0px 6px 9px rgb(80, 255, 45,0.65);
+}
+
+ .errorColor{
+    width: fit-content;
+    block-size: fit-content;
+    justify-content: center; 
+    align-items: center;
+    /* margin: auto; */
+    width: 50%;
+    border: 5px solid rgba(255, 4, 4);
+    border-radius: 23px;
+    padding: 10px;
+    -webkit-box-shadow: 1px 0px 6px 7px rgb(33, 197, 12); 
+    box-shadow: 1px 0px 8px 9px rgba(255, 4, 4, 0.65);
+    animation: flicker 3s linear infinite;
+}   
+  
+@keyframes flicker {
+    0%, 19.999%, 22%, 62.999%, 64%, 64.999%, 70%, 100% {
+    /*box-shadow: none;*/
+    border: 4px solid rgba(255, 4, 4, 0.99);
+    box-shadow: 1px 0px 8px 9px rgba(255, 4, 4, 0.65);
+    }
+    20%, 21.999%, 63%, 63.999%, 65%, 69.999% {
+    border: 4px solid rgba(255, 4, 4, 0.60);  
+    box-shadow: 1px 0px 6px 9px rgba(255, 4, 4, 0.30);
+    }
+}
+  
+input {
+    width: 99%;
+    height: 50px;
+    font-size: 20px;
+}
+
+select {
+    width: 99%;
+    height: 50px;
+    font-size: 20px;
+}
+
+.label{
+    color: white;
+    font-family: Impact, fantasy;
+    
+}
+
+.labelDiv{
+    margin-top: 30px;
+    margin-bottom: 5px;
+    /* justify-content: center; */
+    /* display: flex; */
+    /* align-content: center; */
+    /* align-items: center; */
+
+}
+
+ .radioLabelDiv{
+    margin-top: 30px;
+    margin-bottom: 5px;
+    justify-content: center;
+    display: flex;
+    /* align-content: center; */
+    align-items: center;
+
+}
+
+ textarea{
+    width: 99%;
+    height: 50px;
+   
+    font-size: 20px;
+    resize: vertical;
+}
+
+ .button{
+    margin: 20px;
+    background-color: rgb(92, 255, 43);
+    font-size: 20px;
+    font-family: Impact, fantasy;
+    width: 80px;
+    
+}
+ .submitButtonDiv{
+    margin-top: 30px;
+    
+}
+
+p1{
+    /* margin-top: 12px; */
+   color: red; 
+   margin-bottom: 30px;
+}
+h4{
+    margin-top: 12px;
+    color: rgb(166, 0, 243);
+    margin-bottom: 12px;
+}
+.attchmentButton{
+    color: white;
+}
+
+input:disabled{
+    color: white;
+    background-color: black;
+}
