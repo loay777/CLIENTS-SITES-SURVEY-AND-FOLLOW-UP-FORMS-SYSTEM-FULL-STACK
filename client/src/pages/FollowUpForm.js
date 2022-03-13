@@ -39,10 +39,6 @@ export default function FollowUpForm() {
     const [inIndustrialCity, setInIndustrialCity] = useState("")
     const [formColor, setFormColor] = useState("formColor");
 
-    // useEffect(() => {
-    //     console.log("in indus city: " + inIndustrialCity +
-    //         "\nout indus city: " + outIndustrialCity)
-    // }, [inIndustrialCity, outIndustrialCity])
 
     const onSubmit = data => {
 
@@ -90,12 +86,13 @@ export default function FollowUpForm() {
                 // setDataComplete("Form Data Saved Successfully");
                // console.warn(res.data.followupID); we can use the followup db insertID if we want as a Key instead of request number   
                setFormColor("successColor"); 
+               
                toast.success('Form Data Saved Successfully!');
             }
             if (res.data.success === 0) {
                 // setDataComplete("Data Not Complete");
                 setFormColor("errorColor");
-                toast.error('Failed to Save!');
+                toast.error('Failed to Save!\n'+ res.data.sqlMessage);
 
             }
         })
@@ -115,7 +112,6 @@ export default function FollowUpForm() {
         //         if (res.data.success === 1) {
         //             setSuccess("Image upload successfully");
         //         }
-
         //     })
     };
 

@@ -151,3 +151,12 @@ input:disabled{
     color: white;
     background-color: black;
 }
+textarea:disabled
+{
+    color: white;
+    background-color: black;
+}
+input:checked:disabled {
+    background-color: black;
+
+}

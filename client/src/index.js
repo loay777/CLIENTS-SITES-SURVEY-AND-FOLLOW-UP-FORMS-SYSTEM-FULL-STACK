@@ -3,9 +3,17 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App.js';
 import reportWebVitals from './reportWebVitals';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 ReactDOM.render(
   <React.StrictMode>
+    <style type="text/css">
+    {`
+    body {
+      background-color: rgb(14, 13, 13);;
+    }
+    `}
+  </style>
     <App />
   </React.StrictMode>,
   document.getElementById('root')

@@ -1,7 +1,12 @@
 /* @import url('http://fonts.cdnfonts.com/css/matrix'); */
+body{
+    background-color: rgb(14, 13, 13);
+}
 
 .App{
     text-align: center;
+    background-color: rgb(14, 13, 13);
+
     
   }
   

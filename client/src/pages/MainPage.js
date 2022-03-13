@@ -1,7 +1,9 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import "./MainPage.css";
-import { useNavigate } from 'react-router-dom';
+import {Link, useNavigate } from 'react-router-dom';
+import * as ReactBootStart from 'react-bootstrap';
+
 
 export default function MainPage() {
     let navigate = useNavigate();
@@ -13,9 +15,33 @@ export default function MainPage() {
         })
     }, []);
 
+    async function  fetchForm(formID) {
+      
+        console.log("Trying to fetch form data for from ID: " + formID);
+             const fetch = await axios.get(`http://localhost:3001/api/getfollowupformsbyid/${formID}`).then((data) => {
+                console.log(data.data[0]);
+                navigate(`/followupfrom/${formID}`,{ state: data.data[0]})
+
+                // const attached =  Axios.get(`http://localhost:3001/api/getattachment/${data.data[0].cr_number}`).then((res) => {
+                //     res.data.forEach((item) => { console.log(item) });
+                //     // setAttachments("/attachments/"+res.data[0].url);
+                //     res.data.forEach((item) => { setAttachments((attachments) => [...attachments, "/attachments/" + item.url]) });
+    
+                //     // console.log(res.data[0].url);
+                //     //get the list of attachment URLs here and fetch from file 
+                // })
+                // setIsLoading(false);
+               
+    
+            });
+            
+           
+    }
+
+    const [previousData, setPreviousData] = useState({})
     return (
         <div className="MainPage">
-            <table>
+           {formsList.length===0?<div className="centerLoading"><ReactBootStart.Spinner animation="border"/></div>: <table>
                 <thead>
                     <tr>
                         <th>Request Number</th>
@@ -26,10 +52,9 @@ export default function MainPage() {
                 </thead>
                 <tbody>
                     {formsList.map((val, key) => {
-                        console.log(val.id);
+                        console.log(val.id );
                         return (
-                            <tr key={key} onClick={()=>navigate(`/followupfrom/${val.id}`)}>
-                                
+                            <tr key={key} onClick={() =>{fetchForm(val.id)}}>
                                 <td><strong>{val.request_number}</strong></td>
                                 <td>{val.date}</td>
                                 <td>{val.request_type}</td>
@@ -39,7 +64,8 @@ export default function MainPage() {
                     })
                     }
                 </tbody>
-            </table>
+            </table>}
         </div>
     )
 }
+

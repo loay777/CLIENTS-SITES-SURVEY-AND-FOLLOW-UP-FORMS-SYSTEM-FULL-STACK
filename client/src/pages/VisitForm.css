@@ -1,8 +1,14 @@
+body{
+    background-color: rgb(14, 13, 13); 
+}
 .visitformpage{
     margin: 2%;
     display:flex;
     justify-content: center;
     align-items: center;
+    background-color: rgb(14, 13, 13);
+
+    
     /* height: calc(100vh-80px); */
 }
 

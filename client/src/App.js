@@ -14,6 +14,25 @@ import DisplayFollowUPFrom from "./pages/DisplayFollowUpForm";
 
 function App() {
   return <>
+  <style type="text/css">
+    {`
+      .navbar{
+        width: 100%;
+        height: 80px; 
+        background-color: #000000;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      
+      
+      .navbar .links{
+          font-size: 27px;
+          color: rgb(92, 255, 43);
+          /* font-family: 'Matrix', sans-serif; */
+      
+    `}
+  </style>
     <div className="navbar">
       <div className="links">
         <a href="/">Main Page</a>
