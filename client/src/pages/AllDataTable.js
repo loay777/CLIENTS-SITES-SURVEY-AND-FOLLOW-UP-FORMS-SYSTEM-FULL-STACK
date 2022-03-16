@@ -3,16 +3,32 @@ import axios from "axios";
 import "./MainPage.css";
 import {Link, useNavigate } from 'react-router-dom';
 import * as ReactBootStart from 'react-bootstrap';
+import ReactFilterTable from "react-filter-and-pagination-table";
 
-export default function CreateRecord() {
+export default function AllDataTable() {
     let navigate = useNavigate();
+   
     const [formsList, setFormsList] = useState([]);
-    useEffect(() => {
-        axios.get("http://localhost:3001/api/getvisitforms",).then((data) => {
+    useEffect(async() => {
+       await axios.get("http://localhost:3001/api/getvisitforms",).then((data) => {
             console.log(data);
             setFormsList(data.data)
+            
+
         })
+        // .then((data)=>{
+        //     formsList.map((val,key)=>{
+        //             console.log(val);
+        //             rows.push( createData(val.id, val.city, val.region, val.notes));
+                    
+                  
+        //     })
+
+        // })
     }, []);
+
+
+
 
     async function  fetchForm(formID) {
       
@@ -64,6 +80,7 @@ export default function CreateRecord() {
                     }
                 </tbody>
             </table>}
+        
         </div>
     )
 }

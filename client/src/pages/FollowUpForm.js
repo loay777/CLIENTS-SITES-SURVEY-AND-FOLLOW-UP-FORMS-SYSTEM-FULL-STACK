@@ -62,16 +62,17 @@ export default function FollowUpForm() {
             setAttchment([]);
             if (res.data.success === 1) {
                 console.log(res.data.formID)
-                var attachmentKey = {      
+                var attachmentKeys = {      
                     formID: res.data.formID,
                     cr_Number: data.crNumber,
+                    formType: "followUpForm",
                 }
                 
                 for (const i in userInfo.file){
                     console.log(userInfo.file[i]);
                     const formdata = new FormData();
                     formdata.append('attachment', userInfo.file[i]);
-                    formdata.append('requestNumber', JSON.stringify(attachmentKey));
+                    formdata.append('requestNumber', JSON.stringify(attachmentKeys));
                     Axios.post("http://localhost:3001/api/imageupload", formdata, {
                         headers: { "Content-Type": "multipart/form-data" },
                     }).then(res => { // then print response status

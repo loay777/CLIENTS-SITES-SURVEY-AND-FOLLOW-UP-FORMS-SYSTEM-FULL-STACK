@@ -1,0 +1,10 @@
+Core Features:
+1- tables with search & pagination
+
+Enhancements:
+1- cleaner UI
+2- Responsive Navigation Bar
+3- Delete Records
+
+
+

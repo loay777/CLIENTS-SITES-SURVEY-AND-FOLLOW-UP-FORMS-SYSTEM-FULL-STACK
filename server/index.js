@@ -117,7 +117,7 @@ app.post(`/api/updatefollowup/:id`, async (req, res) => { // POST TO SEND FOLLOW
 
 app.post('/api/savevisitform', async (req, res) => { // POST TO SEND FOLLOW UP FROM TO DB
 
-  const site = req.body.site;
+  // const site = req.body.site;
   const city = req.body.city;
   const region = req.body.region;
   const distance = req.body.distance;
@@ -125,7 +125,7 @@ app.post('/api/savevisitform', async (req, res) => { // POST TO SEND FOLLOW UP F
   const surroundedBySouth = req.body.surroundedBySouth;
   const surroundedByEast = req.body.surroundedByEast;
   const surroundedByWest = req.body.surroundedByWest;
-  const facilityDescription = req.body.facilityDescription;
+  // const facilityDescription = req.body.facilityDescription;
   const institutionSize = req.body.institutionSize;
   const ownershipDeed = req.body.ownershipDeed;
   const buildingDescription = req.body.buildingDescription;
@@ -144,11 +144,10 @@ app.post('/api/savevisitform', async (req, res) => { // POST TO SEND FOLLOW UP F
   //        "\nregistrationDate: " + registrationDate +
   //         "\nzatcaCertExp: " + zatcaCertExp )
 
-  await db.query("INSERT INTO visit_form ( `site`, `city`, `region`, `distance`, `surrounded_by_north`, `surrounded_by_south`, `surrounded_by_east`, `surrounded_by_west`, `facilty_description`, `institution_size`, `ownership_deed`, `building_description`, `facilities`, `electricity_source`, `production_description`, `employees_number`, `shifts_number`, `work_hours`, `notes`, `recommendations`, `date_time`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
-    [site, city, region, distance,
+  await db.query("INSERT INTO visit_form ( `city`, `region`, `distance`, `surrounded_by_north`, `surrounded_by_south`, `surrounded_by_east`, `surrounded_by_west`,  `institution_size`, `ownership_deed`, `building_description`, `facilities`, `electricity_source`, `production_description`, `employees_number`, `shifts_number`, `work_hours`, `notes`, `recommendations`, `date_time`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+    [ city, region, distance,
       surroundedByNorth, surroundedBySouth,
       surroundedByEast, surroundedByWest,
-      facilityDescription,
       institutionSize, ownershipDeed,
       buildingDescription, facilities,
       electricitySource, productionDescription,
@@ -159,12 +158,62 @@ app.post('/api/savevisitform', async (req, res) => { // POST TO SEND FOLLOW UP F
           return res.json({ success: 0, sqlMessage: err.sqlMessage });
         } else {
           console.log(result.insertId);
-          return res.json({ success: 1, followupID: result.insertId });
+          return res.json({ success: 1, formID: result.insertId });
         }
 
       });
 
 });
+
+
+app.post('/api/updatevisitform/:id', async (req, res) => { // POST TO SEND FOLLOW UP FROM TO DB
+  var id = req.params.id;
+  const city = req.body.city;
+  const region = req.body.region;
+  const distance = req.body.distance;
+  const surroundedByNorth = req.body.surroundedByNorth;
+  const surroundedBySouth = req.body.surroundedBySouth;
+  const surroundedByEast = req.body.surroundedByEast;
+  const surroundedByWest = req.body.surroundedByWest;
+  const institutionSize = req.body.institutionSize;
+  const ownershipDeed = req.body.ownershipDeed;
+  const buildingDescription = req.body.buildingDescription;
+  const facilities = req.body.facilities;
+  const electricitySource = req.body.electricitySource;
+  const productionDescription = req.body.productionDescription;
+  const employeesNumber = req.body.employeesNumber;
+  const shiftsNumber = req.body.shiftsNumber;
+  const workHours = req.body.workHours;
+  const notes = req.body.notes;
+  const recommendations = req.body.recommendations;
+  const dateTime = req.body.dateTime;
+
+  // for debugging //
+  // console.log("Date: " + followUpDate +
+  //        "\nregistrationDate: " + registrationDate +
+  //         "\nzatcaCertExp: " + zatcaCertExp )
+
+  await db.query("UPDATE visit_form SET  `city` = ?,  `region` = ?,  `distance` = ?,  `surrounded_by_north` = ?,  `surrounded_by_south` = ?,  `surrounded_by_east` = ?,  `surrounded_by_west` = ?,  `institution_size` = ?,  `ownership_deed` = ?, `building_description` = ?,`facilities` = ?,`electricity_source` = ?,`production_description` = ?, `employees_number` = ?,`shifts_number` = ?,`work_hours` = ?,`notes` = ?,`recommendations` = ?, `date_time` = ? WHERE `id` = ?",
+    [ city, region, distance,
+      surroundedByNorth, surroundedBySouth,
+      surroundedByEast, surroundedByWest,
+      institutionSize, ownershipDeed,
+      buildingDescription, facilities,
+      electricitySource, productionDescription,
+      employeesNumber, shiftsNumber,
+      workHours, notes, recommendations, dateTime, id], (err, result) => {
+        if (err) {
+          console.log(err);
+          return res.json({ success: 0, sqlMessage: err.sqlMessage });
+        } else {
+          console.log(result.insertId);
+          return res.json({ success: 1, formID: result.insertId });
+        }
+
+      });
+
+});
+
 
 const storage = multer.diskStorage({
   destination: path.join(__dirname, '../client/public/', 'attachments'), //try to save in public folder dir
@@ -195,7 +244,6 @@ app.get("/api/deleteimage/:name", async (req, res) => {
 })
 
 
-
 function deleteFileCallback(error) {
   if (error) {
     console.log("Deleting file was unsuccessful")
@@ -204,6 +252,7 @@ function deleteFileCallback(error) {
     console.log("file deleted successfully")
   }
 }
+
 
 app.post('/api/imageupload', async (req, res) => {
 
@@ -217,6 +266,7 @@ app.post('/api/imageupload', async (req, res) => {
       let data = JSON.parse(req.body.requestNumber);
       let formID = data.formID;
       let crNumber = data.cr_Number;
+      let formType = data.formType;
       console.log(data.reqNumber)
       if (!req.file) {
         return res.send('Please select an image to upload');
@@ -233,7 +283,7 @@ app.post('/api/imageupload', async (req, res) => {
       };
 
       const sql = "INSERT INTO attachment (url, date_stored, form_type,form_id,cr_number) VALUES (?,?,?,?,?)"; ///SQL Query to add the image Info to DB
-      db.query(sql, [classifiedsadd.image, date, "follow_up_form", formID, crNumber], (err, results) => {
+      db.query(sql, [classifiedsadd.image, date, formType, formID, crNumber], (err, results) => {
         if (err) throw err;
         res.json({ success: 1 })
       });
@@ -248,7 +298,7 @@ app.post('/api/imageupload', async (req, res) => {
 
 
 
-app.get("/api/getfollowupforms", (req, res) => { // GET THE RECORDS FROM DB
+app.get("/api/getfollowupforms", (req, res) => { // GET ALL FOLLOWUP FORMS FROM DB
   db.query("SELECT * FROM follow_up_form ", (err, result) => {
     if (err) {
       console.log(err);
@@ -258,7 +308,7 @@ app.get("/api/getfollowupforms", (req, res) => { // GET THE RECORDS FROM DB
 
 });
 
-app.get("/api/getfollowupformsbyid/:id", (req, res) => { // GET THE RECORDS FROM DB
+app.get("/api/getfollowupformsbyid/:id", (req, res) => { // GET A SPECIFIC FOLLOWUP FORM BY ID
   var id = req.params.id;
   db.query("SELECT * FROM follow_up_form where id = ? ", id, (err, result) => {
     if (err) {
@@ -268,6 +318,29 @@ app.get("/api/getfollowupformsbyid/:id", (req, res) => { // GET THE RECORDS FROM
   });
 
 });
+
+app.get("/api/getvisitforms", (req, res) => { // GET ALL VISIT FORMS FROM DB
+  db.query("SELECT * FROM visit_form", (err, result) => {
+    if (err) {
+      console.log(err);
+    }
+    res.send(result)
+  });
+
+});
+
+app.get("/api/getvisitformbyid/:id", (req, res) => { // GET A SPECIFIC FOLLOWUP FORM BY ID
+  var id = req.params.id;
+  db.query("SELECT * FROM visit_form where id = ? ", id, (err, result) => {
+    if (err) {
+      console.log(err);
+    }
+    res.send(result)
+  });
+
+});
+
+
 
 app.get("/api/getattachment/:id", (req, res) => { // GET THE RECORDS FROM DB
   var id = req.params.id;
@@ -281,17 +354,20 @@ app.get("/api/getattachment/:id", (req, res) => { // GET THE RECORDS FROM DB
 
 });
 
-
-app.get("/api/getvisitforms", (req, res) => {
-  db.query("SELECT * FROM visit_form", (err, result) => {
+app.get("/api/getattachmentvisitform/:id", (req, res) => { // GET THE RECORDS FROM DB
+  var id = req.params.id;
+  db.query("SELECT * FROM moayedrecords.attachment  where form_type = 'visitForm' AND form_id = ? ", id, (err, result) => {
     if (err) {
       console.log(err);
     }
-    console.log(result);
     res.send(result)
+    // console.log(result)
   });
 
 });
+
+
+
 
 app.listen(PORT, () => {
   console.log(`Listening at http://localhost:${PORT}`);

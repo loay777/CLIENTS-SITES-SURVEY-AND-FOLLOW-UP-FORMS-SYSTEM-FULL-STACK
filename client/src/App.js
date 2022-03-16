@@ -10,7 +10,8 @@ import CreateRecord from "./pages/CreateRecord";
 import FollowUpForm from "./pages/FollowUpForm";
 import VisitForm from "./pages/VisitForm";
 import DisplayFollowUPFrom from "./pages/DisplayFollowUpForm";
-
+import DisplayVisitForm from "./pages/DisplayVisitForm";
+import AllDataTable from "./pages/AllDataTable";
 
 function App() {
   return <>
@@ -35,11 +36,12 @@ function App() {
   </style>
     <div className="navbar">
       <div className="links">
-        <a href="/">Main Page</a>
-        <a href="/createrecord">Create Record</a>
+        
+        <a href="/createrecord">Vist Forms</a>
+        <a href="/">Follow Up Forms</a>
         <a href="/createfollowupform">Create Follow Up Form</a>
         <a href="/createvisitform">Create Visit Form</a>
-        
+        <a href="/alldata">All records</a>
       </div>
     </div>
 
@@ -50,6 +52,9 @@ function App() {
         <Route path="/createfollowupform" exact element={<FollowUpForm/>} />
         <Route path="/createvisitform" exact element={<VisitForm/>} />
         <Route path="/followupfrom/:followupfromId" exact element={<DisplayFollowUPFrom/>} />
+        <Route path="/visitform/:visitformId" exact element={<DisplayVisitForm/>} />
+        <Route path="/alldata" exact element={<AllDataTable/>} />
+
       </Routes>
     </Router>
   </>
