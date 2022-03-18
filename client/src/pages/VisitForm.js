@@ -106,8 +106,8 @@ export default function VisitForm() {
             <div><Toaster /></div>
             {/*  "handleSubmit" will validate your inputs before invoking "onSubmit" */}
             <form className={formColor} onSubmit={handleSubmit(onSubmit)}>
-                <ReactBootStart.Accordion style={{ backgroundColor: 'rgb(14, 13, 13)', border: '3px solid rgb(32, 240, 32)', borderRadius: '8px' }} defaultActiveKey={['0', '1', '2', '3']} alwaysOpen>
-                    <ReactBootStart.Accordion.Item eventKey="0" style={{ backgroundColor: 'rgb(14, 13, 13)', border: '3px solid rgb(32, 240, 32)', }}>
+                <ReactBootStart.Accordion style={{ backgroundColor: 'rgb(14, 13, 13)', border: '3px solid rgb(145, 145, 145)', borderRadius: '8px' }} defaultActiveKey={['0', '1', '2', '3']} alwaysOpen>
+                    <ReactBootStart.Accordion.Item eventKey="0" style={{ backgroundColor: 'rgb(14, 13, 13)', border: '3px solid rgb(145, 145, 145)', }}>
                         <ReactBootStart.Accordion.Header style={{ backgroundColor: 'grey', }}>Location - الموقع</ReactBootStart.Accordion.Header>
                         <ReactBootStart.Accordion.Body style={{ backgroundColor: 'rgb(14, 13, 13)', }}>
 
@@ -143,7 +143,7 @@ export default function VisitForm() {
                     </ReactBootStart.Accordion.Item>
                    
                    
-                    <ReactBootStart.Accordion.Item eventKey="1" style={{ backgroundColor: 'rgb(14, 13, 13)', border: '3px solid rgb(32, 240, 32)', }}>
+                    <ReactBootStart.Accordion.Item eventKey="1" style={{ backgroundColor: 'rgb(14, 13, 13)', border: '3px solid rgb(145, 145, 145)', }}>
                         <ReactBootStart.Accordion.Header style={{ backgroundColor: 'grey', }}>Surrounding Area - المنطقة المحيطة</ReactBootStart.Accordion.Header>
                         <ReactBootStart.Accordion.Body style={{ backgroundColor: 'rgb(14, 13, 13)', }}>
 
@@ -170,7 +170,7 @@ export default function VisitForm() {
                     </ReactBootStart.Accordion.Item>
 
 
-                    <ReactBootStart.Accordion.Item eventKey="2" style={{ backgroundColor: 'rgb(14, 13, 13)', border: '3px solid rgb(32, 240, 32)', }}>
+                    <ReactBootStart.Accordion.Item eventKey="2" style={{ backgroundColor: 'rgb(14, 13, 13)', border: '3px solid rgb(145, 145, 145)', }}>
                         <ReactBootStart.Accordion.Header style={{ backgroundColor: 'grey', }}>Facility Description - وصف المنشأة</ReactBootStart.Accordion.Header>
                         <ReactBootStart.Accordion.Body style={{ backgroundColor: 'rgb(14, 13, 13)', }}>
 
@@ -206,7 +206,7 @@ export default function VisitForm() {
                     </ReactBootStart.Accordion.Item>
                    
                    
-                    <ReactBootStart.Accordion.Item eventKey="3" style={{ backgroundColor: 'rgb(14, 13, 13)', border: '3px solid rgb(32, 240, 32)', }}>
+                    <ReactBootStart.Accordion.Item eventKey="3" style={{ backgroundColor: 'rgb(14, 13, 13)', border: '3px solid rgb(145, 145, 145)', }}>
                         <ReactBootStart.Accordion.Header style={{ backgroundColor: 'grey', }}>Production Process  - عملية الإنتاج </ReactBootStart.Accordion.Header>
                         <ReactBootStart.Accordion.Body style={{ backgroundColor: 'rgb(14, 13, 13)', }}>
 
@@ -218,7 +218,7 @@ export default function VisitForm() {
                     </ReactBootStart.Accordion.Item>
                     
                     
-                    <ReactBootStart.Accordion.Item eventKey="3" style={{ backgroundColor: 'rgb(14, 13, 13)', border: '3px solid rgb(32, 240, 32)', }}>
+                    <ReactBootStart.Accordion.Item eventKey="3" style={{ backgroundColor: 'rgb(14, 13, 13)', border: '3px solid rgb(145, 145, 145)', }}>
                         <ReactBootStart.Accordion.Header style={{ backgroundColor: 'grey', }}>HR - الموارد البشرية </ReactBootStart.Accordion.Header>
                         <ReactBootStart.Accordion.Body style={{ backgroundColor: 'rgb(14, 13, 13)', }}>
 
