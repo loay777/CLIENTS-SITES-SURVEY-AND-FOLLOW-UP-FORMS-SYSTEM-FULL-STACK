@@ -9,6 +9,7 @@ import BootstrapSwitchButton from 'bootstrap-switch-button-react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import axios from "axios";
 import { FcDocument, FcDownload, FcEmptyTrash } from "react-icons/fc";
+import jsPDf from 'jspdf';
 
 
 
@@ -27,7 +28,7 @@ export default function DisplayFollowUPFrom() {
     });
     const [attachments, setAttachments] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
-    const { register, handleSubmit, formState: { errors } } = useForm({
+    const { register, handleSubmit, watch, formState: { errors } } = useForm({
         defaultValues: {
             requestNumber: previousData.request_number,
             followUpDate: previousData.date,
@@ -83,7 +84,13 @@ export default function DisplayFollowUPFrom() {
     const [isSucces, setSuccess] = useState(null);
     const [attchment, setAttchment] = useState([]);
     const [editMode, setEditMode] = useState(false);
-
+    
+    const savePDF = () => {
+        const docPDF = new jsPDf()
+        docPDF.setTableHeaderRow(["Form ID", "Request Number", "Date"]);
+        docPDF.text(`Follow UP From\nForm ID: ${followupfromId} \nRequest Number: ${watch('requestNumber')} \nDate: ${watch('followUpDate')} `, 20, 20,);
+        docPDF.save("test.pdf");
+    }
 
     const toggleEditMode = () => {
         setEditMode(!editMode);
@@ -285,6 +292,7 @@ export default function DisplayFollowUPFrom() {
                 <input disabled={editMode ? false : true} type="submit" value="Save Form" />
                 {/* <button onClick={toggleEditMode}>Edit</button> */}
                 {/* <input type="button">Edit</input> */}
+                <input type="button" onClick={savePDF}></input>
             </form>
         </div>
             : <div className="centerLoading"><ReactBootStart.Spinner animation="border" variant="success" /> </div>} </>

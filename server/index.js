@@ -19,31 +19,6 @@ app.get("/", cors(), async (req, res) => { // JUST A COMMAND TO CHECK IF THE BAC
   // } );
 });
 
-app.post('/api/create', (req, res) => { // POST TO SEND RECORD TO DB
-
-  const title = req.body.title;
-  const clientName = req.body.clientName;
-  const location = req.body.location;
-  const timeDate = req.body.timeDate;
-  const notes = req.body.notes;
-
-  // for debugging //
-  // console.log("Title: " + title +
-  //        "\nClient Name: " + clientName +
-  //         "\nLocation: " + location +
-  //          "\nDate&Time: " + timeDate +
-  //           "\nNotes: " + notes)
-
-  db.query("INSERT INTO records (title, notes, client_name, visit_date, location) VALUES (?,?,?,?,?)", [title, notes, clientName, timeDate, location], (err, result) => {
-    if (err) {
-      console.log(err);
-    }
-    console.log(result);
-  });
-});
-
-
-
 
 
 app.post('/api/createfollowup', async (req, res) => { // POST TO SEND FOLLOW UP FROM TO DB
@@ -115,7 +90,7 @@ app.post(`/api/updatefollowup/:id`, async (req, res) => { // POST TO SEND FOLLOW
 });
 
 
-app.post('/api/savevisitform', async (req, res) => { // POST TO SEND FOLLOW UP FROM TO DB
+app.post('/api/createvisitform', async (req, res) => { // POST TO SEND FOLLOW UP FROM TO DB
 
   // const site = req.body.site;
   const city = req.body.city;
@@ -319,6 +294,28 @@ app.get("/api/getfollowupformsbyid/:id", (req, res) => { // GET A SPECIFIC FOLLO
 
 });
 
+app.get("/api/searchfollowupforms/:input", (req, res) => { // GET A SPECIFIC FOLLOWUP FORM BY ID
+  var input = req.params.input;
+  db.query(`SELECT * FROM follow_up_form where request_number LIKE '%${input}%' OR cr_number LIKE '%${input}%' OR request_type  LIKE '%${input}%' `, input, (err, result) => {
+    if (err) {
+      console.log(err);
+    }
+    res.send(result)
+  });
+
+});
+
+app.get("/api/searchvisitforms/:input", (req, res) => { // GET A SPECIFIC FOLLOWUP FORM BY ID
+  var input = req.params.input;
+  db.query(`SELECT * FROM visit_form where id LIKE '%${input}%' OR distance LIKE '%${input}%' OR date_time  LIKE '%${input}%' `, input, (err, result) => {
+    if (err) {
+      console.log(err);
+    }
+    res.send(result)
+  });
+
+});
+
 app.get("/api/getvisitforms", (req, res) => { // GET ALL VISIT FORMS FROM DB
   db.query("SELECT * FROM visit_form", (err, result) => {
     if (err) {
@@ -339,6 +336,7 @@ app.get("/api/getvisitformbyid/:id", (req, res) => { // GET A SPECIFIC FOLLOWUP 
   });
 
 });
+
 
 
 

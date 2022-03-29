@@ -40,7 +40,7 @@ export default function VisitForm() {
         console.log(data);
         console.log(data.example);
 
-        Axios.post('http://localhost:3001/api/savevisitform', {
+        Axios.post('http://localhost:3001/api/createvisitform', {
             city: data.city,
             region: data.region,
             distance: data.distance,

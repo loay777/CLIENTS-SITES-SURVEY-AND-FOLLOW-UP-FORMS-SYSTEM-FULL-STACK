@@ -15,6 +15,23 @@ export default function FollowUpFormsTable() {
         })
     }, []);
 
+
+    async function search(input){
+
+        if(input!=""){
+            const getSearchResult = await axios.get(`http://localhost:3001/api/searchfollowupforms/${input}`).then((data) =>{
+                console.log(data.data);
+                setFormsList(data.data);
+            })
+        }else {
+            axios.get("http://localhost:3001/api/getfollowupforms",).then((data) => {
+            console.log(data);
+            setFormsList(data.data)
+        })
+        }
+        
+    }
+
     async function  fetchForm(formID) {
       
         console.log("Trying to fetch form data for from ID: " + formID);
@@ -41,6 +58,9 @@ export default function FollowUpFormsTable() {
     const [previousData, setPreviousData] = useState({})
     return (
         <div className="MainPage">
+           <input  type="text" placeholder="Search" className= "SearchFiled" onChange ={ (e)=>{
+                console.log(e.target.value)
+                search (e.target.value)}}></input>
            {formsList.length===0?<div className="centerLoading"><ReactBootStart.Spinner animation="border"/></div>: <table>
                 <thead>
                     <tr>

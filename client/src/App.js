@@ -53,7 +53,7 @@ function App() {
         <ReactBootStart.Navbar.Collapse id="basic-navbar-nav">
           <ReactBootStart.Nav className="me-auto">
             {/* <ReactBootStart.Nav.Link href="/">Home</ReactBootStart.Nav.Link> */}
-            <ReactBootStart.Nav.Link href="followupformstable">Follow Up Forms</ReactBootStart.Nav.Link>
+            <ReactBootStart.Nav.Link href="/followupformstable">Follow Up Forms</ReactBootStart.Nav.Link>
             <ReactBootStart.Nav.Link href="/visitformstable">Visit Forms</ReactBootStart.Nav.Link>
             <ReactBootStart.NavDropdown title="Create" id="basic-nav-dropdown">
               <ReactBootStart.NavDropdown.Item href="/createfollowupform">New Follow Up Form</ReactBootStart.NavDropdown.Item>
