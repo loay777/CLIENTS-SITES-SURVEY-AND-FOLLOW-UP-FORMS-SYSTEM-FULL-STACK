@@ -10,7 +10,7 @@ export default function AllDataTable() {
    
     const [formsList, setFormsList] = useState([]);
     useEffect(async() => {
-       await axios.get("http://localhost:3001/api/getvisitforms",).then((data) => {
+       await axios.get("https://deyaom.ddns.net:3001/api/getvisitforms",).then((data) => {
             console.log(data);
             setFormsList(data.data)
             
@@ -33,7 +33,7 @@ export default function AllDataTable() {
     async function  fetchForm(formID) {
       
         console.log("Trying to fetch form data for from ID: " + formID);
-             const fetch = await axios.get(`http://localhost:3001/api/getvisitformbyid/${formID}`).then((data) => {
+             const fetch = await axios.get(`https://deyaom.ddns.net:3001/api/getvisitformbyid/${formID}`).then((data) => {
                 console.log(data.data[0]);
                 navigate(`/visitform/${formID}`,{ state: data.data[0]})
 

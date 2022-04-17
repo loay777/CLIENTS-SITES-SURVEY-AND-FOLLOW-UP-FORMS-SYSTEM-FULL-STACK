@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 
 
 export default function FollowUpForm() {
-    
+    let hostname = "http://46.251.130.34:8080";
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
     const [userInfo, setuserInfo] = useState({
         file: [],
@@ -42,7 +42,7 @@ export default function FollowUpForm() {
 
     const onSubmit = data => {
 
-        Axios.post('http://localhost:3001/api/createfollowup', {
+        Axios.post(`${hostname}/api/createfollowup`, {
             requestNumber: data.requestNumber,
             followUpDate: data.followUpDate,
             requestType: data.requestType,
@@ -73,7 +73,7 @@ export default function FollowUpForm() {
                     const formdata = new FormData();
                     formdata.append('attachment', userInfo.file[i]);
                     formdata.append('requestNumber', JSON.stringify(attachmentKeys));
-                    Axios.post("http://localhost:3001/api/imageupload", formdata, {
+                    Axios.post(`${hostname}/api/imageupload`, formdata, {
                         headers: { "Content-Type": "multipart/form-data" },
                     }).then(res => { // then print response status
                         // console.warn(res);
@@ -98,22 +98,6 @@ export default function FollowUpForm() {
             }
         })
 
-        // console.log("Request Number = " + requestNumber)
-        // var attachmentKey = {
-        //     reqNumber: requestNumber,
-        // }
-        // const formdata = new FormData();
-        // formdata.append('attachment', userInfo.file);
-        // formdata.append('requestNumber', JSON.stringify(attachmentKey));
-        // Axios.post("http://localhost:3001/api/imageupload", formdata, {
-        //     headers: { "Content-Type": "multipart/form-data" },
-        // })
-        //     .then(res => { // then print response status
-        //         // console.warn(res);
-        //         if (res.data.success === 1) {
-        //             setSuccess("Image upload successfully");
-        //         }
-        //     })
     };
 
     return (

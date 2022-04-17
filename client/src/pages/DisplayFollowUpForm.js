@@ -17,10 +17,10 @@ import jsPDf from 'jspdf';
 
 export default function DisplayFollowUPFrom() {
 
-
+  
     const location = useLocation();
     const [previousData, setPreviousData] = useState(location.state);
-
+    let hostname = "http://46.251.130.34:8080";
     let { followupfromId } = useParams()
     const [userInfo, setuserInfo] = useState({
         file: [],
@@ -48,7 +48,7 @@ export default function DisplayFollowUPFrom() {
     useEffect(async () => {
         console.log(previousData.in_industrial_city)
         setAttchment([]);
-        const attached = await Axios.get(`http://localhost:3001/api/getattachment/${previousData.cr_number}`).then((res) => {
+        const attached = await Axios.get(`${hostname}/api/getattachment/${previousData.cr_number}`).then((res) => {
             res.data.forEach((item) => { console.log(item) });
             // setAttachments("/attachments/"+res.data[0].url);
             res.data.forEach((item) => { setAttachments((attachments) => [...attachments, item.url]) });
@@ -88,6 +88,8 @@ export default function DisplayFollowUPFrom() {
     const savePDF = () => {
         const docPDF = new jsPDf()
         docPDF.setTableHeaderRow(["Form ID", "Request Number", "Date"]);
+        docPDF.html();
+        // docPDF.table(20,20,{[Form_ID: ]})
         docPDF.text(`Follow UP From\nForm ID: ${followupfromId} \nRequest Number: ${watch('requestNumber')} \nDate: ${watch('followUpDate')} `, 20, 20,);
         docPDF.save("test.pdf");
     }
@@ -98,7 +100,7 @@ export default function DisplayFollowUPFrom() {
     }
 
     const deleteImage = (imageName) => {
-        axios.get(`http://localhost:3001/api/deleteimage/${imageName}`)
+        axios.get(`${hostname}/api/deleteimage/${imageName}`)
     }
 
     const onSubmit = data => {
@@ -107,7 +109,7 @@ export default function DisplayFollowUPFrom() {
         // setOutIndustrialCity(previousData.out_industrial_city);
         // console.log("out: " + outIndustrialCity)
         console.log("FORM ID:" + followupfromId);
-        Axios.post(`http://localhost:3001/api/updatefollowup/${followupfromId}`, {
+        Axios.post(`${hostname}/api/updatefollowup/${followupfromId}`, {
             requestNumber: data.requestNumber,
             followUpDate: data.followUpDate,
             requestType: data.requestType,
@@ -137,7 +139,7 @@ export default function DisplayFollowUPFrom() {
                     const formdata = new FormData();
                     formdata.append('attachment', userInfo.file[i]);
                     formdata.append('requestNumber', JSON.stringify(attachmentKey));
-                    Axios.post("http://localhost:3001/api/imageupload", formdata, {
+                    Axios.post(`${hostname}/api/imageupload`, formdata, {
                         headers: { "Content-Type": "multipart/form-data" },
                     }).then(res => { // then print response status
                         // console.warn(res);
@@ -292,7 +294,7 @@ export default function DisplayFollowUPFrom() {
                 <input disabled={editMode ? false : true} type="submit" value="Save Form" />
                 {/* <button onClick={toggleEditMode}>Edit</button> */}
                 {/* <input type="button">Edit</input> */}
-                <input type="button" onClick={savePDF}></input>
+                <input type="button" onClick={savePDF} name="GET PDF"></input>
             </form>
         </div>
             : <div className="centerLoading"><ReactBootStart.Spinner animation="border" variant="success" /> </div>} </>

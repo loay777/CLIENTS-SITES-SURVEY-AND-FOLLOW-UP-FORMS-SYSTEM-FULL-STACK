@@ -7,9 +7,10 @@ import * as ReactBootStart from 'react-bootstrap';
 
 export default function MainPage() {
     let navigate = useNavigate();
+    let hostname = "http://46.251.130.34:8080";
     const [formsList, setFormsList] = useState([]);
     useEffect(() => {
-        axios.get("http://localhost:3001/api/getfollowupforms",).then((data) => {
+        axios.get(`${hostname}/api/getfollowupforms`,).then((data) => {
             console.log(data);
             setFormsList(data.data)
         })
@@ -18,7 +19,7 @@ export default function MainPage() {
     async function  fetchForm(formID) {
       
         console.log("Trying to fetch form data for from ID: " + formID);
-             const fetch = await axios.get(`http://localhost:3001/api/getfollowupformsbyid/${formID}`).then((data) => {
+             const fetch = await axios.get(`${hostname}/api/getfollowupformsbyid/${formID}`).then((data) => {
                 console.log(data.data[0]);
                 navigate(`/followupfrom/${formID}`,{ state: data.data[0]})
 

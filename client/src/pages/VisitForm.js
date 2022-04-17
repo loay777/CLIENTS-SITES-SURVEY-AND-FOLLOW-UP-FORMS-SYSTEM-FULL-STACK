@@ -13,6 +13,7 @@ export default function VisitForm() {
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
     const [isSucces, setSuccess] = useState(null);
     const [attchment, setAttchment] = useState([]);
+    let hostname = "http://46.251.130.34:8080";
     const [formColor, setFormColor] = useState("formColor");
     const [userInfo, setuserInfo] = useState({
         file: [],
@@ -40,7 +41,7 @@ export default function VisitForm() {
         console.log(data);
         console.log(data.example);
 
-        Axios.post('http://localhost:3001/api/createvisitform', {
+        Axios.post(`${hostname}/api/createvisitform`, {
             city: data.city,
             region: data.region,
             distance: data.distance,
@@ -77,7 +78,7 @@ export default function VisitForm() {
                     const formdata = new FormData();
                     formdata.append('attachment', userInfo.file[i]);
                     formdata.append('requestNumber', JSON.stringify(attachmentKeys));
-                    Axios.post("http://localhost:3001/api/imageupload", formdata, {
+                    Axios.post(`${hostname}/api/imageupload`, formdata, {
                         headers: { "Content-Type": "multipart/form-data" },
                     }).then(res => { // then print response status
                         // console.warn(res);

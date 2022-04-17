@@ -16,6 +16,7 @@ export default function DisplayVisitForm() {
 
     const location = useLocation();
     const [previousData, setPreviousData] = useState(location.state);
+    let hostname = "http://46.251.130.34:8080";
     console.log(previousData);
     const { register, handleSubmit, formState: { errors } } = useForm({
         defaultValues: {
@@ -63,7 +64,7 @@ export default function DisplayVisitForm() {
     useEffect(async () => {
         console.log(previousData.in_industrial_city)
         setAttchment([]);
-        const attached = await Axios.get(`http://localhost:3001/api/getattachmentvisitform/${previousData.id}`).then((res) => {
+        const attached = await Axios.get(`${hostname}/api/getattachmentvisitform/${previousData.id}`).then((res) => {
             res.data.forEach((item) => { console.log(item) });
             // setAttachments("/attachments/"+res.data[0].url);
             res.data.forEach((item) => { setAttachments((attachments) => [...attachments, item.url]) });
@@ -93,13 +94,13 @@ export default function DisplayVisitForm() {
     }
 
     const deleteImage = (imageName) => {
-        axios.get(`http://localhost:3001/api/deleteimage/${imageName}`)
+        axios.get(`${hostname}/api/deleteimage/${imageName}`)
     }
     const onSubmit = data => {
         console.log(data);
         console.log(data.example);
 
-        Axios.post(`http://localhost:3001/api/updatevisitform/${previousData.id}`, {
+        Axios.post(`${hostname}/api/updatevisitform/${previousData.id}`, {
             city: data.city,
             region: data.region,
             distance: data.distance,
@@ -136,7 +137,7 @@ export default function DisplayVisitForm() {
                     const formdata = new FormData();
                     formdata.append('attachment', userInfo.file[i]);
                     formdata.append('requestNumber', JSON.stringify(attachmentKeys));
-                    Axios.post("http://localhost:3001/api/imageupload", formdata, {
+                    Axios.post(`${hostname}/api/imageupload`, formdata, {
                         headers: { "Content-Type": "multipart/form-data" },
                     }).then(res => { // then print response status
                         // console.warn(res);

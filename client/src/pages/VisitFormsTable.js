@@ -6,9 +6,10 @@ import * as ReactBootStart from 'react-bootstrap';
 
 export default function CreateRecord() {
     let navigate = useNavigate();
+    let hostname = "http://46.251.130.34:8080"; 
     const [formsList, setFormsList] = useState([]);
     useEffect(() => {
-        axios.get("http://localhost:3001/api/getvisitforms",).then((data) => {
+        axios.get(`${hostname}/api/getvisitforms`,).then((data) => {
             console.log(data);
             setFormsList(data.data)
         })
@@ -17,12 +18,12 @@ export default function CreateRecord() {
     async function search(input) {
 
         if (input != "") {
-            const getSearchResult = await axios.get(`http://localhost:3001/api/searchvisitforms/${input}`).then((data) => {
+            const getSearchResult = await axios.get(`${hostname}/api/searchvisitforms/${input}`).then((data) => {
                 console.log(data.data);
                 setFormsList(data.data);
             })
         } else {
-            axios.get("http://localhost:3001/api/getvisitforms",).then((data) => {
+            axios.get(`${hostname}/api/getvisitforms`,).then((data) => {
                 console.log(data);
                 setFormsList(data.data)
             })
@@ -32,11 +33,11 @@ export default function CreateRecord() {
     async function fetchForm(formID) {
 
         console.log("Trying to fetch form data for from ID: " + formID);
-        const fetch = await axios.get(`http://localhost:3001/api/getvisitformbyid/${formID}`).then((data) => {
+        const fetch = await axios.get(`${hostname}/api/getvisitformbyid/${formID}`).then((data) => {
             console.log(data.data[0]);
             navigate(`/visitform/${formID}`, { state: data.data[0] })
 
-            // const attached =  Axios.get(`http://localhost:3001/api/getattachment/${data.data[0].cr_number}`).then((res) => {
+            // const attached =  Axios.get(`${hostname}/api/getattachment/${data.data[0].cr_number}`).then((res) => {
             //     res.data.forEach((item) => { console.log(item) });
             //     // setAttachments("/attachments/"+res.data[0].url);
             //     res.data.forEach((item) => { setAttachments((attachments) => [...attachments, "/attachments/" + item.url]) });
